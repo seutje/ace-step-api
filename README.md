@@ -17,6 +17,8 @@ This repository exposes the [ACE Step](https://github.com/ace-step/ACE-Step) mus
    ```
    
    You can override the port by setting the `PORT` environment variable.
+   To choose which GPU to run on, set `DEVICE_ID` (defaults to `0`). If no GPU is
+   available the server will fall back to CPU.
 
 3. Generate music by sending a POST request to `/generate` with a JSON body containing `prompt`, `lyrics` and `length` (in seconds). The server returns the generated audio file.
 

@@ -5,7 +5,10 @@ import os
 app = Flask(__name__)
 
 # Initialize the ACE Step pipeline. The checkpoint will be downloaded on first use.
-pipeline = ACEStepPipeline()
+# If a GPU device is available, you can choose which one to use via the
+# DEVICE_ID environment variable (defaults to 0).
+device_id = int(os.environ.get("DEVICE_ID", 0))
+pipeline = ACEStepPipeline(device_id=device_id)
 
 @app.route('/generate', methods=['POST'])
 def generate_song():
