@@ -1,4 +1,5 @@
 import argparse
+import base64
 import requests
 
 
@@ -29,8 +30,14 @@ def main():
     if r.status_code != 200:
         raise SystemExit(f"Request failed: {r.status_code} {r.text}")
 
+    data = r.json()
+    audio_b64 = data.get("audio_base64")
+    if not audio_b64:
+        raise SystemExit("Response missing audio data")
+
+    audio_bytes = base64.b64decode(audio_b64)
     with open(args.output, "wb") as f:
-        f.write(r.content)
+        f.write(audio_bytes)
     print(f"Saved song to {args.output}")
 
 

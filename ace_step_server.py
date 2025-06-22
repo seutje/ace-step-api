@@ -1,6 +1,7 @@
-from flask import Flask, request, send_file, jsonify
+from flask import Flask, request, jsonify
 from acestep.pipeline_ace_step import ACEStepPipeline
 import os
+import base64
 
 app = Flask(__name__)
 
@@ -38,7 +39,10 @@ def generate_song():
         return jsonify({'error': 'generation failed'}), 500
 
     audio_path = output_paths[0]
-    return send_file(audio_path, as_attachment=True)
+    with open(audio_path, "rb") as f:
+        audio_bytes = f.read()
+    audio_b64 = base64.b64encode(audio_bytes).decode("utf-8")
+    return jsonify({"audio_base64": audio_b64})
 
 if __name__ == '__main__':
     # Use PORT env var if provided, otherwise default to 8000 to avoid

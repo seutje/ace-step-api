@@ -22,7 +22,7 @@ This repository exposes the [ACE Step](https://github.com/ace-step/ACE-Step) mus
    `torch.compile()` and overlapped decoding are enabled by default. Set
    `TORCH_COMPILE=0` or `OVERLAPPED_DECODE=0` to disable these features.
 
-3. Generate music by sending a POST request to `/generate` with a JSON body containing `prompt`, `lyrics` and `length` (in seconds). The server returns the generated audio in FLAC format.
+3. Generate music by sending a POST request to `/generate` with a JSON body containing `prompt`, `lyrics` and `length` (in seconds). The server returns a JSON object with the audio base64 encoded under the `audio_base64` key.
 
 ## Endpoint Example
 
@@ -30,7 +30,7 @@ This repository exposes the [ACE Step](https://github.com/ace-step/ACE-Step) mus
 curl -X POST http://localhost:8000/generate \
      -H 'Content-Type: application/json' \
      -d '{"prompt": "upbeat pop", "lyrics": "[verse]\nHello world", "length": 5}' \
-     --output song.flac
+     | jq -r .audio_base64 | base64 -d > song.flac
 ```
 
 Alternatively, you can call the server from Python using the provided script:
