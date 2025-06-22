@@ -4,11 +4,10 @@ This repository exposes the [ACE Step](https://github.com/ace-step/ACE-Step) mus
 
 ## Usage
 
-1. Install dependencies. The ACE Step package can be installed from GitHub:
+1. Install dependencies using `requirements.txt`:
 
    ```bash
-   pip install git+https://github.com/ace-step/ACE-Step.git
-   pip install Flask
+   pip install -r requirements.txt
    ```
 
 2. Start the server:
