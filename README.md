@@ -4,7 +4,7 @@ This repository exposes the [ACE Step](https://github.com/ace-step/ACE-Step) mus
 
 ## Usage
 
-1. Install dependencies using `requirements.txt` (FFmpeg must be available to enable MP3 export):
+1. Install dependencies using `requirements.txt`:
 
    ```bash
    pip install -r requirements.txt
@@ -22,7 +22,7 @@ This repository exposes the [ACE Step](https://github.com/ace-step/ACE-Step) mus
    `torch.compile()` and overlapped decoding are enabled by default. Set
    `TORCH_COMPILE=0` or `OVERLAPPED_DECODE=0` to disable these features.
 
-3. Generate music by sending a POST request to `/generate` with a JSON body containing `prompt`, `lyrics` and `length` (in seconds). The server returns an MP3 audio file.
+3. Generate music by sending a POST request to `/generate` with a JSON body containing `prompt`, `lyrics` and `length` (in seconds). The server returns the generated audio in FLAC format.
 
 ## Endpoint Example
 
@@ -30,11 +30,11 @@ This repository exposes the [ACE Step](https://github.com/ace-step/ACE-Step) mus
 curl -X POST http://localhost:8000/generate \
      -H 'Content-Type: application/json' \
      -d '{"prompt": "upbeat pop", "lyrics": "[verse]\nHello world", "length": 5}' \
-     --output song.mp3
+     --output song.flac
 ```
 
 Alternatively, you can call the server from Python using the provided script:
 
 ```bash
-python call_api.py --prompt "upbeat pop" --lyrics "[verse]\nHello world" --length 5 --output song.mp3
+python call_api.py --prompt "upbeat pop" --lyrics "[verse]\nHello world" --length 5 --output song.flac
 ```
