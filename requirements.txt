@@ -1,0 +1,4 @@
+Flask
+# Install ACE Step directly from GitHub
+git+https://github.com/ace-step/ACE-Step.git
+requests
