@@ -1,4 +1,5 @@
 from flask import Flask, request, send_file, jsonify
+from pydub import AudioSegment
 from acestep.pipeline_ace_step import ACEStepPipeline
 import os
 
@@ -38,7 +39,11 @@ def generate_song():
         return jsonify({'error': 'generation failed'}), 500
 
     audio_path = output_paths[0]
-    return send_file(audio_path, as_attachment=True)
+    mp3_path = os.path.splitext(audio_path)[0] + ".mp3"
+    # Convert the generated FLAC to MP3. Requires ffmpeg to be installed.
+    audio = AudioSegment.from_file(audio_path)
+    audio.export(mp3_path, format="mp3")
+    return send_file(mp3_path, as_attachment=True)
 
 if __name__ == '__main__':
     # Use PORT env var if provided, otherwise default to 8000 to avoid

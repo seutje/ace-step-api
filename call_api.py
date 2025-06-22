@@ -16,7 +16,7 @@ def main():
         default=5,
         help="song length in seconds (defaults to 5)",
     )
-    parser.add_argument("--output", default="song.flac", help="output audio filename")
+    parser.add_argument("--output", default="song.mp3", help="output audio filename")
     parser.add_argument(
         "--url",
         default="http://localhost:8000/generate",
