@@ -7,8 +7,18 @@ app = Flask(__name__)
 # Initialize the ACE Step pipeline. The checkpoint will be downloaded on first use.
 # If a GPU device is available, you can choose which one to use via the
 # DEVICE_ID environment variable (defaults to 0).
+def env_flag(name: str) -> bool:
+    return os.environ.get(name, "0").lower() in ("1", "true", "yes")
+
 device_id = int(os.environ.get("DEVICE_ID", 0))
-pipeline = ACEStepPipeline(device_id=device_id)
+torch_compile = env_flag("TORCH_COMPILE")
+overlapped_decode = env_flag("OVERLAPPED_DECODE")
+
+pipeline = ACEStepPipeline(
+    device_id=device_id,
+    torch_compile=torch_compile,
+    overlapped_decode=overlapped_decode,
+)
 
 @app.route('/generate', methods=['POST'])
 def generate_song():
