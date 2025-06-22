@@ -28,5 +28,7 @@ def generate_song():
     return send_file(audio_path, as_attachment=True)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    # Use PORT env var if provided, otherwise default to 8000 to avoid
+    # clashing with other local services that may use port 5000.
+    port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port)
