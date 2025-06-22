@@ -32,3 +32,9 @@ curl -X POST http://localhost:8000/generate \
      -d '{"prompt": "upbeat pop", "lyrics": "[verse]\nHello world", "length": 5}' \
      --output song.flac
 ```
+
+Alternatively, you can call the server from Python using the provided script:
+
+```bash
+python call_api.py --prompt "upbeat pop" --lyrics "[verse]\nHello world" --length 5 --output song.flac
+```
