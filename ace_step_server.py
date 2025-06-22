@@ -7,12 +7,12 @@ app = Flask(__name__)
 # Initialize the ACE Step pipeline. The checkpoint will be downloaded on first use.
 # If a GPU device is available, you can choose which one to use via the
 # DEVICE_ID environment variable (defaults to 0).
-def env_flag(name: str) -> bool:
-    return os.environ.get(name, "0").lower() in ("1", "true", "yes")
+def env_flag(name: str, default: str = "0") -> bool:
+    return os.environ.get(name, default).lower() in ("1", "true", "yes")
 
 device_id = int(os.environ.get("DEVICE_ID", 0))
-torch_compile = env_flag("TORCH_COMPILE")
-overlapped_decode = env_flag("OVERLAPPED_DECODE")
+torch_compile = env_flag("TORCH_COMPILE", default="1")
+overlapped_decode = env_flag("OVERLAPPED_DECODE", default="1")
 
 pipeline = ACEStepPipeline(
     device_id=device_id,
