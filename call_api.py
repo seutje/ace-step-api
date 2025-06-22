@@ -4,9 +4,18 @@ import requests
 
 def main():
     parser = argparse.ArgumentParser(description="Call the ACE Step service")
-    parser.add_argument("--prompt", required=True, help="text prompt for style")
+    parser.add_argument(
+        "--prompt",
+        default="upbeat pop",
+        help="text prompt for style (defaults to 'upbeat pop')",
+    )
     parser.add_argument("--lyrics", default="", help="lyrics in ACE Step format")
-    parser.add_argument("--length", type=float, default=60, help="song length in seconds")
+    parser.add_argument(
+        "--length",
+        type=float,
+        default=5,
+        help="song length in seconds (defaults to 5)",
+    )
     parser.add_argument("--output", default="song.flac", help="output audio filename")
     parser.add_argument(
         "--url",
