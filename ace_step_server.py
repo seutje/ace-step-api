@@ -3,6 +3,7 @@ from acestep.pipeline_ace_step import ACEStepPipeline
 import os
 import base64
 import gc
+import shutil
 import torch
 
 app = Flask(__name__)
@@ -51,6 +52,13 @@ def generate_song():
     with open(audio_path, "rb") as f:
         audio_bytes = f.read()
     audio_b64 = base64.b64encode(audio_bytes).decode("utf-8")
+
+    outputs_dir = os.path.dirname(audio_path)
+    try:
+        shutil.rmtree(outputs_dir)
+    except Exception as e:
+        app.logger.warning(f"Failed to clean outputs directory {outputs_dir}: {e}")
+
     return jsonify({"audio_base64": audio_b64})
 
 if __name__ == '__main__':

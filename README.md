@@ -21,6 +21,8 @@ This repository exposes the [ACE Step](https://github.com/ace-step/ACE-Step) mus
    available the server will fall back to CPU.
    `torch.compile()` and overlapped decoding are enabled by default. Set
    `TORCH_COMPILE=0` or `OVERLAPPED_DECODE=0` to disable these features.
+   Generated audio files are saved temporarily and the server cleans up the
+   `outputs` directory after each request.
 
 3. Generate music by sending a POST request to `/generate` with a JSON body containing `prompt`, `lyrics` and `length` (in seconds). The server returns a JSON object with the audio base64 encoded under the `audio_base64` key.
 
